@@ -1,0 +1,20 @@
+kind: pipeline
+name: default
+
+workspace:
+  base: /go
+  path: src/k8s.io/cloud-provider-alibaba-cloud
+steps:
+- name: publish_linux_amd64
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo:
+      from_secret: plugin_repo
+    dockerfile: Dockerfile
+  when:
+    event: [ tag, push ]

@@ -171,6 +171,8 @@ func (s *InstanceClient) findAddressByInstance(instance *ecs.InstanceAttributesT
 		addrs = append(addrs, v1.NodeAddress{Type: v1.NodeInternalIP, Address: instance.VpcAttributes.NatIpAddress})
 	}
 
+	addrs = append(addrs, v1.NodeAddress{Type: v1.NodeHostName, Address: fmt.Sprintf("%s.%s",instance.RegionId,instance.InstanceId)})
+
 	return addrs
 }
 
